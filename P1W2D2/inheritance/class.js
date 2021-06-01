@@ -4,18 +4,33 @@ class Person {
     this.name = name;
     this.age = age;
   }
+
+  sleep() {
+    console.log("I sleep");
+    this.age -= 10;
+  }
 }
 
 // Наследник
 class Student extends Person {
-  constructor(name, age) {
+  constructor(name, age = 40) {
     super(name, age);
     this.skill = 1;
   }
 
-  isTyred = false;
+  isTired = false;
 
   study() {
-    this.isTyred = true;
+    this.isTired = true;
+  }
+
+  sleep() {
+    super.sleep();
+    this.isTired = false;
   }
 }
+
+const ourStudent = new Student();
+ourStudent.study();
+ourStudent.sleep();
+console.log(ourStudent);

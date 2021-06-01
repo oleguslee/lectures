@@ -11,6 +11,8 @@ function Student(name, age) {
   this.isTired = false;
 }
 
-Student.prototype.isTired = true;
+Student.prototype.study = function () {
+  this.isTired = true;
+};
 
 Object.setPrototypeOf(Student.prototype, Person.prototype);

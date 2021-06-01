@@ -10,3 +10,5 @@ class Student {
     this.isTyred = true;
   }
 }
+
+const student1 = new Student();

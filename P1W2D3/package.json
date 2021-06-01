@@ -1,0 +1,13 @@
+{
+  "name": "P1W2D3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "text": "node file-system/read.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,13 +1,18 @@
 {
-  "name": "P1W2D3",
+  "name": "p1w2d3",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "node lecture",
+  "main": "args.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "text": "node file-system/read.js"
+    "start": "node yoda.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yodasay": "1.1.9"
+  },
+  "devDependencies": {
+    
+  }
 }

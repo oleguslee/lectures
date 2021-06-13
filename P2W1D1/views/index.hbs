@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+    <form method="POST" class="w-50">
+        <div class="mb-3">
+            <label for="text" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="text" aria-describedby="text">
+        </div>
+        <div class="mb-3">
+            <label for="picture" class="form-label">Picture url</label>
+            <input name="picture" type="text" class="form-control" id="picture" aria-describedby="emailHelp">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr />
+
+<div class="row">
+    {{#if posts.length}}
+    {{#each posts}}
+
+    <div class="col-4 my-2">
+        <div class="card  w-100 h-100" style="width: 18rem;">
+            <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+    {{else}}
+    <p>Постов нет</p>
+
+    {{/if}}
+
+
+
+</div>

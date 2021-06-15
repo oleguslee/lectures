@@ -1,0 +1,42 @@
+<h1>{{title}}</h1>
+
+<form method="POST" action="/posts/add">
+    <div class="mb-3">
+        <label for="text" class="form-label">Image title</label>
+        <input type="text" name="title" class="form-control" id="text" aria-describedby="image Title">
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image source</label>
+        <input type="text" name="picture" class="form-control" id="image" aria-describedby="image">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<hr />
+
+<section class="section">
+    <div class="row">
+        {{#if posts}}
+
+        {{#each posts}}
+        <div class="col-4 my-2">
+            <div class="card w-100" style="width: 18rem;">
+                <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+
+                    <a href="/posts/{{this._id}}" class="btn btn-primary">Read more</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{else}}
+        <p>Нету ничего :(</p>
+
+
+        {{/if}}
+
+    </div>
+</section>

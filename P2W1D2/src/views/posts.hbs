@@ -1,42 +1,40 @@
-<h1>{{title}}</h1>
+<div class="d-flex justify-content-center">
+    <form method="POST" action="/posts/add" class="w-50">
+        <div class="mb-3">
+            <label for="text" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="text" aria-describedby="text">
+        </div>
+        <div class="mb-3">
+            <label for="picture" class="form-label">Picture url</label>
+            <input name="picture" type="text" class="form-control" id="picture" aria-describedby="emailHelp">
+        </div>
 
-<form method="POST" action="/posts/add">
-    <div class="mb-3">
-        <label for="text" class="form-label">Image title</label>
-        <input type="text" name="title" class="form-control" id="text" aria-describedby="image Title">
-    </div>
-    <div class="mb-3">
-        <label for="image" class="form-label">Image source</label>
-        <input type="text" name="picture" class="form-control" id="image" aria-describedby="image">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 <hr />
 
-<section class="section">
-    <div class="row">
-        {{#if posts}}
+<div class="row">
+    {{#if posts.length}}
+    {{#each posts}}
 
-        {{#each posts}}
-        <div class="col-4 my-2">
-            <div class="card w-100" style="width: 18rem;">
-                <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{this.title}}</h5>
-
-                    <a href="/posts/{{this._id}}" class="btn btn-primary">Read more</a>
-                </div>
+    <div class="col-4 my-2">
+        <div class="card  w-100 h-100" style="width: 18rem;">
+            <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <a href="/posts/{{this.title}}" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
-        {{/each}}
-
-        {{else}}
-        <p>Нету ничего :(</p>
-
-
-        {{/if}}
-
     </div>
-</section>
+    {{/each}}
+
+    {{else}}
+    <p>Постов нет</p>
+
+    {{/if}}
+
+
+
+</div>

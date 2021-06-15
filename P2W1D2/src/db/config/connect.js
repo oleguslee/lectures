@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { dbConnectionURL, options } = require("./config");
-console.log(dbConnectionURL);
 
 function connect() {
   mongoose

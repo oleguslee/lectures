@@ -36,7 +36,7 @@ router.post("/add", async (req, res) => {});
 Чтобы вставить их куда-то, используем синтаксис {{>название}}
 
 Если папка views находится не в корне проекта, то надо явно зарегистрировать путь
-hbs.registerPartials(path.join(__dirname, "src", "views", "partials"));
+hbs.registerPartials(path.join(\_\_dirname, "src", "views", "partials"));
 
 3. Параметризированные запросы
    Уникальная часть пути, например у детальных страниц новостей. В обработчике ручки пишется через :
@@ -46,15 +46,15 @@ hbs.registerPartials(path.join(__dirname, "src", "views", "partials"));
    });
 
 4. Middleware (промежуточные обработчики)
-Есть готовые в express, например:
-app.use(express.urlencoded({ extended: true }));
+   Есть готовые в express, например:
+   app.use(express.urlencoded({ extended: true }));
 
 Но можно написать самостоятельно:
 app.use((req, res, next)=>{
-    //  какой-то код
+// какой-то код
 
     next() //  обязательно вызывать
+
 });
 
-
-
+req ============= middleware =============> res

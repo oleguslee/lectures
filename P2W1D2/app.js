@@ -1,27 +1,41 @@
 const express = require("express");
+const morgan = require("morgan");
 const path = require("path");
-const hbs = require("hbs");
 const { connect } = require("./src/db/config/connect");
-const postRouter = require("./src/routes/post.router");
-const indexRouter = require("./src/routes/index.router");
+const hbs = require("hbs");
 
-const app = express();
+const mainRouter = require("./src/routes/main.routes");
+const postsRouter = require("./src/routes/post.routes");
+
 connect();
+const app = express();
 const PORT = 3000;
 
+app.use(morgan("dev"));
+app.set("view engine", "hbs");
+
+// app.settings["view engine"] = "hbs";
+// console.log(app.settings);
+
+// console.log(__dirname);
+console.log(process.env.PWD);
+app.set("views", path.join(process.env.PWD, "src", "views"));
+
 app.use(express.urlencoded({ extended: true }));
+hbs.registerPartials(path.join(process.env.PWD, "src", "views", "partials"));
 app.use(express.static(path.join(process.env.PWD, "public")));
 
-app.set("view engine", "hbs");
-// app.settings["view engine"] = "dddddd";
+// middleware
+app.use((req, res, next) => {
+  req.sayHi = "Hi!";
+  next();
+});
 
-app.set("views", path.join(process.env.PWD, "src", "views"));
-// console.log(app);
-hbs.registerPartials(path.join(process.env.PWD, "src", "views", "partials"));
+// Обработчики ручек
+app.use("/", mainRouter);
+app.use("/posts", postsRouter);
 
-app.use("/", indexRouter);
-app.use("/posts", postRouter);
-
+// Слушаем сервер
 app.listen(PORT, () => {
   console.log(`Server has been started on PORT ${PORT}`);
 });

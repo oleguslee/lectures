@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <form id="postsForm" method="POST" action="/posts/add" class="w-50">
+    <form name="postsForm" method="POST" action="/posts/add" class="w-50">
         <div class="mb-3">
             <label for="text" class="form-label">Title</label>
             <input name="title" type="text" class="form-control" id="text" aria-describedby="text">
@@ -16,18 +16,16 @@
 <hr />
 
 <div class="row" id="postsContainer">
-    {{#if posts.length}}
-    {{#each posts}}
+    {{#if allPosts}}
+    {{#each allPosts}}
 
     <div data-id="{{this._id}}" class="col-4 my-2">
         <div class="card  w-100 h-100" style="width: 18rem;">
             <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
             <div class="card-body">
                 <h5 class="card-title">{{this.title}}</h5>
-                <p data-likes class="card-text">Likes: {{this.likes}}</p>
-                <button data-addlike class="btn btn-success mb-1">Нравится</button>
                 <a href="/posts/{{this._id}}" class="btn btn-primary mb-1">Подробнее</a>
-                <button data-delete class="btn btn-danger">Удалить</button>
+                <button data-delete type="button" class="btn btn-danger">Удалить</button>
             </div>
         </div>
     </div>

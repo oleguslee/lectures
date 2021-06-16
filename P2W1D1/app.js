@@ -1,31 +1,33 @@
 const express = require("express");
-const morgan = require("morgan");
 const { connect } = require("./src/db/config/connect");
-const Post = require("./src/db/models/post.model");
+const PostModel = require("./src/db/models/post.model");
+const morgan = require("morgan");
+// console.log(express);
 
-const server = express();
-// console.log(server);
-
-const PORT = 3000;
+const app = express();
 connect();
 
-server.set("view engine", "hbs");
+const PORT = 3000;
 
-server.use(morgan("dev"));
-server.use(express.urlencoded({ extended: true })); // нужно, чтобы мы могли получить содержимое post-запроса
+app.set("view engine", "hbs");
 
-server.get("/", async (req, res) => {
-  const allPosts = await Post.find();
-  res.render(`index`, { posts: allPosts });
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", async (req, res) => {
+  const allPosts = await PostModel.find();
+  res.render("index", { posts: allPosts, title: "My Posts" });
 });
 
-server.post("/", async (req, res) => {
+app.post("/", async (req, res) => {
   const dataFromClient = req.body;
-  const newPost = await Post.create(dataFromClient);
-  console.log(newPost);
-  res.redirect(`/`); // POST-запрос надо заканчивать редиректом, но ни в коем случае не рендером
+
+  const newPost = await PostModel.create(dataFromClient);
+  // console.log(newPost);
+
+  res.redirect("/");
 });
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server has been started on PORT ${PORT}`);
 });

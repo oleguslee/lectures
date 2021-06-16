@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/DariaKliukhina/lectures/issues"
   },
-  "homepage": "https://github.com/DariaKliukhina/lectures#readme"
+  "homepage": "https://github.com/DariaKliukhina/lectures#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.1.2",
+    "mongoose": "^5.12.13",
+    "morgan": "^1.10.0"
+  }
 }

@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-  picture: {
-    type: String,
-    reauired: true,
-  },
   title: {
     type: String,
-    reauired: true,
+    required: true,
+  },
+  picture: {
+    type: String,
+    required: true,
   },
 });
 

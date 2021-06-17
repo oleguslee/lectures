@@ -1,0 +1,51 @@
+<h1>{{title}}</h1>
+
+<h2>{{anotherTitle}}</h2>
+
+<h3>{{anotherNewTitle}}</h3>
+
+<div class="d-flex justify-content-center">
+    <form name="postsForm" method="POST" action="/blog/add" class="w-50">
+        <div class="mb-3">
+            <label for="text" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="text" aria-describedby="text">
+        </div>
+        <div class="mb-3">
+            <label for="picture" class="form-label">Picture url</label>
+            <input name="picture" type="text" class="form-control" id="picture" aria-describedby="emailHelp">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr />
+
+<div class="row" id="postsContainer">
+    {{#if allPosts}}
+    {{#each allPosts}}
+
+    <div data-id="{{this._id}}" class="col-4 my-2">
+        <div class="card  w-100 h-100" style="width: 18rem;">
+            <img src="{{this.picture}}" class="card-img-top" alt="{{this.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <div class="d-flex">
+                    <button data-like type="button" class="btn btn-warning mb-1 mr-1">❤️</button>
+                    <span data-count>Likes: {{this.like}}</span>
+                </div>
+                <a href="/blog/{{this._id}}" class="btn btn-primary mb-1">More</a>
+                <button data-delete type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+    {{else}}
+    <p>Постов нет</p>
+
+    {{/if}}
+
+
+
+</div>

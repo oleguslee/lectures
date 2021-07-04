@@ -1,14 +1,14 @@
-function List({ phones }) {
+function List({ books }) {
   return (
     <ul class="list-group py-5">
-      {phones.length ? (
-        phones.map((el) => (
+      {books.length ? (
+        books.map((el) => (
           <li
             key={el.id}
             class="list-group-item justify-content-between d-flex"
           >
-            <span>{el.userName}</span>
-            <span>{el.phone}</span>
+            <span>{el.title}</span>
+            <span>{el.author}</span>
           </li>
         ))
       ) : (

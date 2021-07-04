@@ -1,29 +1,29 @@
-function Form({ handleSubmit, handlerPhone, handlerName, userName, phone }) {
+function Form({ handleSubmit, handleTitle, handleAuthor, author, title }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
-        <p>Name: {userName}</p>
+        <p>Автор: {author}</p>
         <input
-          onChange={handlerName}
-          value={userName}
+          onChange={handleAuthor}
+          value={author}
           type="text"
-          placeholder="name"
+          placeholder="Имя автора"
           className="form-control"
         />
       </div>
       <div className="mb-3">
-        <p>Phone: {phone}</p>
+        <p>Название: {title}</p>
         <input
-          onChange={handlerPhone}
-          value={phone}
+          onChange={handleTitle}
+          value={title}
           type="text"
-          placeholder="phone"
+          placeholder="Название"
           className="form-control"
         />
       </div>
 
       <button type="submit" className="btn btn-primary">
-        Create new
+        Добавить
       </button>
     </form>
   );

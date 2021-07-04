@@ -4,48 +4,48 @@ import Form from "./components/Form/Form";
 import List from "./components/List/List";
 
 function App() {
-  const [phonesList, setPhones] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [booksList, setBooksList] = useState([]);
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
 
-  const handlerName = (event) => {
+  const handleAuthor = (event) => {
     if (event.target.value) {
-      setUserName(event.target.value);
+      setAuthor(event.target.value);
     } else {
-      setUserName("");
+      setAuthor("");
     }
   };
-  const handlerPhone = (event) => {
+  const handleTitle = (event) => {
     if (event.target.value) {
-      setPhone(event.target.value);
+      setTitle(event.target.value);
     } else {
-      setPhone("");
+      setTitle("");
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (userName && phone) {
+    if (author && title) {
       fetch(process.env.REACT_APP_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userName,
-          phone,
+          author,
+          title,
         }),
       })
         .then((response) => response.json())
-        .then((data) => setPhones((prevValue) => [...prevValue, data]));
+        .then((data) => setBooksList((prevValue) => [...prevValue, data]));
 
       clearInput();
     }
   };
 
   const clearInput = () => {
-    setUserName("");
-    setPhone("");
+    setAuthor("");
+    setTitle("");
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
       const response = await fetch(process.env.REACT_APP_API_URL);
       const data = await response.json();
 
-      setPhones(data);
+      setBooksList(data);
     })();
   }, []);
 
@@ -61,12 +61,12 @@ function App() {
     <div className="container py-5">
       <Form
         handleSubmit={handleSubmit}
-        handlerPhone={handlerPhone}
-        handlerName={handlerName}
-        userName={userName}
-        phone={phone}
+        handleTitle={handleTitle}
+        handleAuthor={handleAuthor}
+        author={author}
+        title={title}
       />
-      <List phones={phonesList} />
+      <List books={booksList} />
     </div>
   );
 }

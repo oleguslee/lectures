@@ -6,11 +6,12 @@ const app = express();
 
 const PORT = process.env.PORT ?? 3000;
 
-const list = [
+const books = [
   {
     id: "222",
     author: "Дж. Р. Р. Толкиен",
     title: "Властелин колец",
+    isFavorite: false,
   },
 ];
 
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api", (req, res) => {
-  res.json(list);
+  res.json(books);
 });
 
 app.post("/api", (req, res) => {
@@ -32,12 +33,21 @@ app.post("/api", (req, res) => {
       title,
     };
 
-    list.push(newBook);
-
+    books.push(newBook);
     return res.status(201).json(newBook);
   }
 
   return res.sendStatus(406);
+});
+
+app.patch("/api/:id", (req, res) => {
+  const id = req.params.id;
+  const itemIndex = books.findIndex((el) => String(el.id) === id);
+  if (itemIndex === -1) {
+    return res.sendStatus(404);
+  }
+  books[itemIndex].isFavorite = !books[itemIndex].isFavorite;
+  return res.json(books[itemIndex]);
 });
 
 app.listen(PORT, () => {

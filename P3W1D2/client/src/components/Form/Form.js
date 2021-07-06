@@ -1,20 +1,45 @@
-import style from "./style.module.scss";
-import { useTitleContext } from "../../contexts/contexts";
+import styles from "./style.module.scss";
 
-function Form({ handleSubmit, inputs }) {
-  const fromContext = useTitleContext();
+import { useBooksContext } from "../../contexts/booksContext";
+import useInput from "../../hooks/inputHook";
+
+function Form() {
+  const inputs = [
+    useInput({ placeholder: "title", type: "text" }),
+    useInput({ placeholder: "author", type: "text" }),
+  ];
+
+  const { books, setBooks } = useBooksContext();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    fetch(process.env.REACT_APP_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: inputs[0].getValue(),
+        author: inputs[1].getValue(),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks([...books, data]);
+        inputs.forEach((el) => el.clear());
+      });
+  };
+
   return (
-    <form onSubmit={handleSubmit} className={`${style.form}`}>
-      {inputs.map((el, i) => {
-        return (
-          <div key={i} className="mb-3">
-            <input {...el.forTag} className="form-control" />
-          </div>
-        );
-      })}
-
+    <form onSubmit={handleSubmit} className={styles.form}>
+      {inputs.map((el, i) => (
+        <div className="mb-3" key={i}>
+          <input {...el.tagAttrs} className="form-control" />
+        </div>
+      ))}
       <button type="submit" className="btn btn-primary">
-        Добавить
+        Submit
       </button>
     </form>
   );

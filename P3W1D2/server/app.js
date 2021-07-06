@@ -3,53 +3,52 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-
 const PORT = process.env.PORT ?? 3000;
 
-const books = [
+const booksList = [
   {
-    id: "222",
-    author: "Дж. Р. Р. Толкиен",
-    title: "Властелин колец",
+    id: "2222",
+    title: "Rotten kappchen",
+    author: "Brueder Grimm",
     isFavorite: false,
   },
 ];
 
-app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
 app.get("/api", (req, res) => {
-  res.json(books);
+  res.json(booksList);
 });
 
 app.post("/api", (req, res) => {
-  const { author, title } = req.body;
+  const { title, author } = req.body;
 
-  if (author && title) {
+  if (title && author) {
     const newBook = {
-      id: Date.now(),
-      author,
       title,
+      author,
+      id: Date.now(),
     };
 
-    books.push(newBook);
-    return res.status(201).json(newBook);
+    booksList.push(newBook);
+    res.json(newBook);
   }
 
-  return res.sendStatus(406);
+  res.sendStatus(403);
 });
 
 app.patch("/api/:id", (req, res) => {
   const id = req.params.id;
-  const itemIndex = books.findIndex((el) => String(el.id) === id);
+  const itemIndex = booksList.findIndex((el) => String(el.id) === id);
   if (itemIndex === -1) {
     return res.sendStatus(404);
   }
-  books[itemIndex].isFavorite = !books[itemIndex].isFavorite;
-  return res.json(books[itemIndex]);
+  booksList[itemIndex].isFavorite = !booksList[itemIndex].isFavorite;
+  return res.json(booksList[itemIndex]);
 });
 
 app.listen(PORT, () => {
-  console.log(`success`);
+  console.log(`Server has been started on PORT ${PORT}`);
 });

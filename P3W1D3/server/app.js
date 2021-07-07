@@ -1,44 +1,31 @@
-const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
-const app = express();
-const PORT = process.env.PORT ?? 3000;
+const express = require("express");
+const Book = require("./src/db/models/book.model");
+const { connect } = require("./src/db/config/connect");
 
-const DB = [
-  {
-    id: "222",
-    author: "Дж. Р. Р. Толкиен",
-    title: "Властелин колец",
-    isFavorite: false,
-  },
-  {
-    id: "333",
-    author: "К. Кизи",
-    title: "Цветы для Элджернона",
-    isFavorite: false,
-  },
-  {
-    id: "444",
-    author: "Э. М. Ремарк",
-    title: "Жизнь взаймы",
-    isFavorite: false,
-  },
-];
+const PORT = process.env.PORT ?? 3001;
+
+connect();
+
+const app = express();
 
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/api", (req, res) => res.json(DB));
+app.get("/api", (req, res) => {
+  Book.find()
+    .then((data) => res.json(data))
+    .catch((err) => res.sendStatus(404));
+});
 
-app.get("/api/:id", (req, res) => {
-  const { id } = req.params;
-  if (id) {
-    const user = DB.users.find((el) => user.id === id);
-    if (user) {
-      return res.json(user);
-    }
-    return res.sendStatus(404);
-  }
-  return res.status(418);
+app.post("/api", (req, res) => {
+  Book.create(req.body)
+    .then((newBook) => {
+      res.json(newBook);
+    })
+    .catch((err) => res.sendStatus(403));
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,3 @@
+export const MOVIE_CREATE = "MOVIE_CREATE";
+export const MOVIE_ADD_TO_WATCHED = "MOVIE_ADD_TO_WATCHED";
+export const MOVIE_DELETE = "MOVIE_DELETE";

@@ -76,13 +76,14 @@ const doSomething = (title) => ({
 Для доступа к редаксу из нашего реакт-приложения, надо обернуть все его содержимое в компонент Provider (react-redux)
 и передать в него пропсом store
 
+const dispatch = useDispatch(); - достаем функцию dispatch
+
+const movies = useSelector((state) => state.movies); - достаем что-то из состояния
+
 3. yarn add --dev redux-devtools-extension
 чтобы начать использовать тулзы в проекте, надо добаить это в настройку стора
 <script>const store = createStore(rootReducer, initialState, composeWithDevTools());</script>
 
-const dispatch = useDispatch(); - достаем функцию dispatch
-
-const movies = useSelector((state) => state.movies); - достаем что-то из состояния
 
 4. Можно записывать наш стор в localeStorage
 

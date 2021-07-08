@@ -1,17 +1,20 @@
 import store from "./redux/store";
-import { addMovie } from "./redux/actions/movies";
+import { addBook } from "./redux/actions/books";
 
-console.log({ store });
+console.log(store);
 
-store.subscribe(() => {
-  console.log("store is updated", store.getState());
-});
-
-// store.dispatch(addMovie("something"));
-
-const form = document.getElementById("createMovie");
+const form = document.getElementById("addBook");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  store.dispatch(addMovie(e.target.movieDescription.value));
+  const newBook = {
+    title: e.target.bookTitle.value,
+    id: "1",
+  };
+
+  store.subscribe(() => {
+    console.log(store.getState());
+  });
+
+  store.dispatch(addBook(newBook));
 });

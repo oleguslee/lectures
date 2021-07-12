@@ -1,11 +1,9 @@
 // State
-const initialState = {
+export const initialState = {
   books: {
     items: [],
+    isLoading: false,
     error: null,
-    loading: false,
   }, // slice
   users: [],
 };
-
-export default initialState;

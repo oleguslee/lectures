@@ -6,16 +6,16 @@ export const getDataFromServer = async (url) => {
     return result;
   }
 
-  throw Error(result.message);
+  throw Error(response.message);
 };
 
-export const createBookFromServer = async (url, newBook) => {
+export const postDataOnServer = async (url, data) => {
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newBook),
+    body: JSON.stringify(data),
   });
 
   const result = await response.json();
@@ -24,5 +24,5 @@ export const createBookFromServer = async (url, newBook) => {
     return result;
   }
 
-  throw Error(result.message);
+  throw Error(response.message);
 };

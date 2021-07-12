@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { watchBooks } from "./bookSaga";
+import { getBooksWatch } from "./bookSaga";
 
-export default function* rootSaga() {
-  yield all([watchBooks()]);
+export function* rootSaga() {
+  yield all([getBooksWatch()]);
 }

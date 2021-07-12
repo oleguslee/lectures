@@ -1,44 +1,49 @@
 import {
-  BOOK_CREATE_START,
-  BOOK_CREATE_SUCCESS,
-  BOOK_CREATE_ERROR,
-  BOOK_GET_ALL_START,
-  BOOK_GET_ALL_SUCCESS,
-  BOOK_GET_ALL_ERROR,
+  BOOK_LOADING_ERROR,
+  BOOK_LOADING_START,
+  BOOK_GET_SUCCESS,
+  BOOK_ADD_ERROR,
+  BOOK_ADD_START,
+  BOOK_ADD_SUCCESS,
 } from "../types";
 
-export const getAllBooksStart = () => ({
-  type: BOOK_GET_ALL_START,
-});
-
-export const getAllBooksSuccess = (books) => ({
-  type: BOOK_GET_ALL_SUCCESS,
-  payload: {
-    books,
-  },
-});
-
-export const getAllBooksError = (err) => ({
-  type: BOOK_GET_ALL_ERROR,
-  payload: err,
-  error: true,
-});
-
-// createBook
-export const createBookStart = (newBook) => ({
-  type: BOOK_CREATE_START,
+export const bookAddStart = (newBook) => ({
+  type: BOOK_ADD_START,
   payload: {
     newBook,
   },
 });
 
-export const createBookSuccess = (newBook) => ({
-  type: BOOK_CREATE_SUCCESS,
-  payload: newBook,
+export const bookAddSuccess = (newBook) => ({
+  type: BOOK_ADD_SUCCESS,
+  payload: {
+    newBook,
+  },
 });
 
-export const createBookError = (err) => ({
-  type: BOOK_CREATE_ERROR,
-  payload: err,
+export const bookAddError = (error) => ({
+  type: BOOK_ADD_ERROR,
+  payload: {
+    error,
+  },
+  error: true,
+});
+
+export const booksLoadingStart = () => ({
+  type: BOOK_LOADING_START,
+});
+
+export const booksGetSuccess = (books) => ({
+  type: BOOK_GET_SUCCESS,
+  payload: {
+    books,
+  },
+});
+
+export const booksLoadingError = (error) => ({
+  type: BOOK_LOADING_ERROR,
+  payload: {
+    error,
+  },
   error: true,
 });

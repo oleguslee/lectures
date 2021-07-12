@@ -1,35 +1,32 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks } from "../../redux/actions/books";
+import { getBooks } from "../../redux/actions/books";
 import { Link } from "react-router-dom";
 export default function List() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
-
-  const { items, error, loading } = books;
+  const { items, isLoading, error } = books;
 
   useEffect(() => {
-    dispatch(getAllBooks());
+    dispatch(getBooks());
   }, []);
 
   return (
-    <>
-      {loading ? (
+    <ul>
+      {isLoading ? (
         <p>Wait for it...</p>
       ) : error ? (
-        <p>Ooooops</p>
+        <p>Oooooops</p>
       ) : (
-        <ul>
-          {items.map((el) => (
-            <li key={el._id}>
-              <Link to={`/book/${el._id}`}>
-                <span>{el.title}</span>
-                <span>{el.author}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        items.map((el) => (
+          <li key={el._id}>
+            <Link to={`/book/${el._id}`}>
+              <span>{el.title}</span>
+              <span>{el.author}</span>
+            </Link>
+          </li>
+        ))
       )}
-    </>
+    </ul>
   );
 }

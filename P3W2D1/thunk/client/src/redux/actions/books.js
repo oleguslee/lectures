@@ -1,81 +1,59 @@
 import {
-  BOOK_CREATE_START,
-  BOOK_CREATE_SUCCESS,
-  BOOK_CREATE_ERROR,
-  BOOK_ADD_TO_FAVORITE_START,
-  BOOK_ADD_TO_FAVORITE_SUCCESS,
-  BOOK_ADD_TO_FAVORITE_ERROR,
-  BOOK_GET_ALL_START,
-  BOOK_GET_ALL_SUCCESS,
-  BOOK_GET_ALL_ERROR,
+  BOOK_ADD,
+  BOOK_ADD_TO_FAVORITE,
+  BOOK_LOADING_ERROR,
+  BOOK_LOADING_START,
+  BOOK_GET_SUCCESS,
 } from "../types";
 
-export const getAllBooksStart = () => ({
-  type: BOOK_GET_ALL_START,
+export const booksLoadingStart = () => ({
+  type: BOOK_LOADING_START,
 });
 
-export const getAllBooksSuccess = (books) => ({
-  type: BOOK_GET_ALL_SUCCESS,
+export const booksGetSuccess = (books) => ({
+  type: BOOK_GET_SUCCESS,
   payload: {
     books,
   },
 });
 
-export const getAllBooksError = (err) => ({
-  type: BOOK_GET_ALL_ERROR,
-  payload: err,
+export const booksLoadingError = (error) => ({
+  type: BOOK_LOADING_ERROR,
+  payload: {
+    error,
+  },
   error: true,
 });
 
-export const getAllBooks = () => async (dispatch, getState) => {
-  // console.log(getState());
-  dispatch(getAllBooksStart());
+// thunk
+export const getBooks = () => async (dispatch, getState) => {
+  // console.log(getState())
 
-  const response = await fetch(process.env.REACT_APP_API_URL);
-  const result = await response.json();
+  // getBooksStart
+  dispatch(booksLoadingStart());
 
-  setTimeout(() => {
-    if (response.ok) {
-      dispatch(getAllBooksSuccess(result));
-      // dispatch(getAllBooksError("some Error"));
-    } else {
-      dispatch(getAllBooksError(result));
-    }
-  }, 3000);
-};
+  try {
+    const response = await fetch(process.env.REACT_APP_API_URL);
+    const result = await response.json();
 
-// createBook
-export const createBookStart = () => ({
-  type: BOOK_CREATE_START,
-});
-
-export const createBookSuccess = (newBook) => ({
-  type: BOOK_CREATE_SUCCESS,
-  payload: newBook,
-});
-
-export const createBookError = (err) => ({
-  type: BOOK_CREATE_ERROR,
-  payload: err,
-  error: true,
-});
-
-export const createBook = (newBook) => async (dispatch) => {
-  dispatch(createBookStart());
-
-  const response = await fetch(process.env.REACT_APP_API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newBook),
-  });
-
-  const result = await response.json();
-
-  if (response.ok) {
-    dispatch(createBookSuccess(result));
-  } else {
-    dispatch(createBookError(result));
+    setTimeout(() => {
+      // getBooksSuccess
+      dispatch(booksGetSuccess(result));
+    }, 2000);
+  } catch (err) {
+    //getBooksError
+    dispatch(booksLoadingError(err));
   }
 };
+
+export const addBook = (newBook) => ({
+  type: BOOK_ADD,
+  payload: {
+    newBook,
+  },
+});
+
+export const addBookToFavorite = (id) => ({
+  type: BOOK_ADD_TO_FAVORITE,
+  payload: { id },
+});

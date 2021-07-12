@@ -1,43 +1,42 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { takeEvery, call, put } from "redux-saga/effects";
+import { BOOK_LOADING_START, BOOK_ADD_START } from "../types";
+import { getDataFromServer, postDataOnServer } from "../tools/tools";
 import {
-  getAllBooksError,
-  getAllBooksSuccess,
-  createBookSuccess,
-  createBookError,
+  booksLoadingError,
+  booksGetSuccess,
+  bookAddError,
+  bookAddSuccess,
 } from "../actions/books";
-import { BOOK_GET_ALL_START, BOOK_CREATE_START } from "../types";
-import { getDataFromServer, createBookFromServer } from "./tools";
 
+// worker
 function* getAllBooks() {
   try {
-    const response = yield call(
-      getDataFromServer,
-      process.env.REACT_APP_API_URL
-    );
+    const result = yield call(getDataFromServer, process.env.REACT_APP_API_URL);
 
-    yield put(getAllBooksSuccess(response));
-  } catch (err) {
-    yield put(getAllBooksError(err));
+    yield put(booksGetSuccess(result));
+  } catch (error) {
+    yield put(booksLoadingError(error));
   }
 }
 
-function* createBook(action) {
+function* addBook(action) {
   const { newBook } = action.payload;
 
   try {
-    const response = yield call(
-      createBookFromServer,
+    const result = yield call(
+      postDataOnServer,
       process.env.REACT_APP_API_URL,
       newBook
     );
 
-    yield put(createBookSuccess(response));
+    yield put(bookAddSuccess(result));
   } catch (err) {
-    yield put(createBookError(err));
+    yield put(bookAddError(err));
   }
 }
 
-export function* watchBooks() {
-  yield takeEvery(BOOK_GET_ALL_START, getAllBooks);
-  yield takeEvery(BOOK_CREATE_START, createBook);
+// watcher
+export function* getBooksWatch() {
+  yield takeEvery(BOOK_LOADING_START, getAllBooks);
+  yield takeEvery(BOOK_ADD_START, addBook);
 }

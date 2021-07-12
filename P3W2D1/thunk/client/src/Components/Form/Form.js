@@ -1,6 +1,6 @@
 import useInput from "../../hooks/inputHook";
 import { useDispatch } from "react-redux";
-import { createBook } from "../../redux/actions/books";
+import { addBook } from "../../redux/actions/books";
 
 export default function Form() {
   const inputs = [
@@ -13,13 +13,21 @@ export default function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newBook = {
-      title: inputs[0].getValue(),
-      author: inputs[1].getValue(),
-    };
-
-    dispatch(createBook(newBook));
-    inputs.forEach((el) => el.clear());
+    fetch(process.env.REACT_APP_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: inputs[0].getValue(),
+        author: inputs[1].getValue(),
+      }),
+    })
+      .then((response) => response.json())
+      .then((newBook) => {
+        dispatch(addBook(newBook));
+        inputs.forEach((el) => el.clear());
+      });
   };
 
   return (

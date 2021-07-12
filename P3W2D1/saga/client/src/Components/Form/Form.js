@@ -1,6 +1,7 @@
 import useInput from "../../hooks/inputHook";
 import { useDispatch } from "react-redux";
-import { createBookStart } from "../../redux/actions/books";
+import { bookAddStart } from "../../redux/actions/books";
+
 
 export default function Form() {
   const inputs = [
@@ -13,13 +14,13 @@ export default function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newBook = {
+    dispatch(bookAddStart({
       title: inputs[0].getValue(),
       author: inputs[1].getValue(),
-    };
+    }))
 
-    dispatch(createBookStart(newBook));
     inputs.forEach((el) => el.clear());
+    
   };
 
   return (

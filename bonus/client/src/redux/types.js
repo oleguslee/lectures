@@ -1,0 +1,7 @@
+export const POSTS_GET_START = "POSTS_GET_START";
+export const POSTS_GET_SUCCESS = "POSTS_GET_SUCCESS";
+export const POSTS_GET_ERROR = "POSTS_GET_ERROR";
+
+export const POST_ADD_START = "POST_ADD_START";
+export const POST_ADD_SUCCESS = "POST_ADD_SUCCESS";
+export const POST_ADD_ERROR = "POST_ADD_ERROR";

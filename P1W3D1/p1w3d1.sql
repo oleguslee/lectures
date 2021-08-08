@@ -50,3 +50,11 @@ UPDATE questions SET quest_name = 'Что говорит кит?' WHERE cat_id =
 
 -- удаление из таблицы
 DELETE FROM questions WHERE cat_id = 2;
+
+-- удаление базы
+DROP DATABASE questions;
+
+-- удаление пользователя
+DROP USER bob;
+
+-- \du - просмотр всех пользователей

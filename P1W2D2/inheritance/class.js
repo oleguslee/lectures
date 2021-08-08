@@ -1,5 +1,6 @@
 // Родитель
 class Person {
+  
   constructor(name, age) {
     this.name = name;
     this.age = age;
@@ -31,6 +32,4 @@ class Student extends Person {
 }
 
 const ourStudent = new Student();
-ourStudent.study();
-ourStudent.sleep();
-console.log(ourStudent);
+

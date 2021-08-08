@@ -8,20 +8,11 @@ class Student {
   isTyred = false;
 
   static isStudent(item) {
-    // return item instanceof Student;
-    return this._age;
+    return item instanceof Student;
   }
 
   get age() {
     return this._age;
-  }
-
-  get inn() {
-    return this.#inn;
-  }
-
-  get fullInfo() {
-    return `I am ${this.name}, and I am ${this._age} years old`;
   }
 
   set age(newAge) {
@@ -31,10 +22,15 @@ class Student {
       this._age = newAge;
     }
   }
-
-  #showInn() {
-    console.log(`My inn is ${this.#inn}`);
+  
+  get inn() {
+    return this.#inn;
   }
+
+  get fullInfo() {
+    return `I am ${this.name}, and I am ${this._age} years old`;
+  }
+
 
   study() {
     this.isTyred = true;
